@@ -55,6 +55,7 @@ async function importFromFileSystemDirectoryEntry(entry: FileSystemDirectoryEntr
 
 declare function require(x: string): any
 const exampleProfileURL = require('../../sample/profiles/stackcollapse/perf-vertx-stacks-01-collapsed-all.txt')
+const exampleData = JSON.stringify(require('../../sample/profiles/speedscope/0.6.0/pinpoint.json'));
 
 interface GLCanvasProps {
   canvasContext: CanvasContext | null
@@ -271,6 +272,9 @@ export class Application extends StatelessComponent<ApplicationProps> {
   loadExample = () => {
     this.loadProfile(async () => {
       const filename = 'perf-vertx-stacks-01-collapsed-all.txt'
+      if (exampleData) {
+        return await importProfilesFromText('example data', exampleData)
+      }
       const data = await fetch(exampleProfileURL).then(resp => resp.text())
       return await importProfilesFromText(filename, data)
     })
@@ -383,6 +387,9 @@ export class Application extends StatelessComponent<ApplicationProps> {
     window.addEventListener('keypress', this.onWindowKeyPress)
     document.addEventListener('paste', this.onDocumentPaste)
     this.maybeLoadHashParamProfile()
+    if (exampleData) {
+      this.loadExample();
+    }
   }
 
   componentWillUnmount() {
