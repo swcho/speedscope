@@ -55,7 +55,7 @@ async function importFromFileSystemDirectoryEntry(entry: FileSystemDirectoryEntr
 
 declare function require(x: string): any
 const exampleProfileURL = require('../../sample/profiles/stackcollapse/perf-vertx-stacks-01-collapsed-all.txt')
-const exampleData = JSON.stringify(require('../../sample/profiles/speedscope/0.6.0/pinpoint.json'));
+const exampleData: any = null; //JSON.stringify(require('../../sample/profiles/speedscope/0.6.0/pinpoint.json'));
 
 interface GLCanvasProps {
   canvasContext: CanvasContext | null
